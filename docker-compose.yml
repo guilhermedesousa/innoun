@@ -1,0 +1,28 @@
+version: '3'
+services:
+  www:
+    build: .
+    volumes:
+      - './:/var/www/html'
+    ports:
+      - '8080:80'
+    depends_on:
+      - db
+      - phpmyadmin
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=innout
+      - MYSQL_USER=guisantos
+      - MYSQL_PASSWORD=gsantos123
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8001:80'
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
