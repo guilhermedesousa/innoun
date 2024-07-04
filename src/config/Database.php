@@ -1,5 +1,9 @@
 <?php
 
+namespace config;
+
+use mysqli;
+
 class Database {
     public static function getConnection() {
         $env_path = realpath(dirname(__FILE__) . '/../env.ini');
