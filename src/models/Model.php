@@ -29,6 +29,13 @@ class Model {
         $this->values[$key] = $value;
     }
 
+    public static function getOne($filters = [], $columns = '*') {
+        $class = get_called_class();
+        $result = static::getResultFromSelect($filters, $columns);
+
+        return $result ? new $class($result->fetch_assoc()) : null;
+    }
+
     public static function get($filters = [], $columns = '*') {
         $objects = [];
         $result = static::getResultFromSelect($filters, $columns);
