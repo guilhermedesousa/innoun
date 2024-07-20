@@ -1,11 +1,14 @@
 <?php
 
-namespace config;
+namespace Config;
 
 use mysqli;
+use mysqli_result;
 
-class Database {
-    public static function getConnection() {
+class Database
+{
+    public static function getConnection(): mysqli
+    {
         $env_path = realpath(dirname(__FILE__) . '/../env.ini');
         $env = parse_ini_file($env_path);
         $connection = new mysqli($env['host'], $env['username'], $env['password'], $env['database']);
@@ -17,7 +20,8 @@ class Database {
         return $connection;
     }
 
-    public static function getResultFromQuery($sql) {
+    public static function getResultFromQuery(string $sql): bool|mysqli_result
+    {
         $connection = self::getConnection();
         $result = $connection->query($sql);
         $connection->close();

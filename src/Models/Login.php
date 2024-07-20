@@ -1,16 +1,18 @@
 <?php
 
-namespace models;
-use exceptions\AppException;
-use exceptions\ValidationException;
+namespace Models;
+
+use Exceptions\{AppException, ValidationException};
 
 loadModel('User');
 
-class Login extends Model {
+class Login extends Model
+{
     /**
      * @throws ValidationException
      */
-    public function validate() {
+    public function validate(): void
+    {
         $errors = [];
 
         if (!$this->email) {
@@ -30,7 +32,8 @@ class Login extends Model {
      * @throws AppException
      * @throws ValidationException
      */
-    public function checkLogin() {
+    public function checkLogin(): User
+    {
         $this->validate();
         $user = User::getOne(['email' => $this->email]);
         if ($user) {

@@ -1,10 +1,12 @@
 <?php
 
-function loadModel($modelName) {
+function loadModel(string $modelName): void
+{
     require_once MODEL_PATH . "/{$modelName}.php";
 }
 
-function loadView($viewName, $params = []) {
+function loadView(string $viewName, array $params = []): void
+{
     if (count($params) > 0) {
         foreach ($params as $key => $value) {
             if (strlen($key) > 0) {
@@ -12,5 +14,6 @@ function loadView($viewName, $params = []) {
             }
         }
     }
+
     require_once VIEW_PATH . "/{$viewName}.php";
 }

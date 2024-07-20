@@ -4,11 +4,11 @@ date_default_timezone_set('America/Sao_Paulo');
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.UTF-8', 'portuguese');
 
 // folders
-define('MODEL_PATH', realpath(dirname(__FILE__) . '/../models'));
+define('MODEL_PATH', realpath(dirname(__FILE__) . '/../Models'));
 define('VIEW_PATH', realpath(dirname(__FILE__) . '/../views'));
 define('TEMPLATE_PATH', realpath(dirname(__FILE__) . '/../views/template'));
-define('CONTROLLER_PATH', realpath(dirname(__FILE__) . '/../controllers'));
-define('EXCEPTION_PATH', realpath(dirname(__FILE__) . '/../exceptions'));
+define('CONTROLLER_PATH', realpath(dirname(__FILE__) . '/../Controllers'));
+define('EXCEPTION_PATH', realpath(dirname(__FILE__) . '/../Exceptions'));
 
 // files
 require_once realpath(dirname(__FILE__) . '/Database.php');

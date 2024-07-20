@@ -8,7 +8,7 @@ if ($exception) {
         'message' => $exception->getMessage()
     ];
 
-    if (get_class($exception) === 'exceptions\ValidationException') {
+    if (get_class($exception) === 'Exceptions\ValidationException') {
         $errors = $exception->getErrors();
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-use models\Login;
-use exceptions\AppException;
-use exceptions\ValidationException;
+namespace Controllers;
+
+use Models\Login;
+use Exceptions\{AppException, ValidationException};
 
 loadModel('Login');
+
 $exception = null;
 
 if (count($_POST) > 0) {
