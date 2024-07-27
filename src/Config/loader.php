@@ -15,6 +15,7 @@ function loadView(string $viewName, array $params = []): void
         }
     }
 
+    require_once TEMPLATE_PATH . "/head.php";
     require_once VIEW_PATH . "/{$viewName}.php";
 }
 
@@ -28,6 +29,7 @@ function loadTemplateView(string $viewName, array $params = []): void
         }
     }
 
+    require_once TEMPLATE_PATH . "/head.php";
     require_once TEMPLATE_PATH . "/header.php";
     require_once TEMPLATE_PATH . "/aside.php";
     require_once VIEW_PATH . "/{$viewName}.php";

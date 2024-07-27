@@ -4,8 +4,6 @@ namespace Models;
 
 use Exceptions\{AppException, ValidationException};
 
-loadModel('User');
-
 class Login extends Model
 {
     /**
