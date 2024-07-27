@@ -173,6 +173,39 @@ aside.sidebar .main {
 
 main.content {
     grid-area: content;
+    background-color: #FFF;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+main.content .content-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 20px;
+}
+
+main.content .content-title .icon {
+    font-size: 3rem;
+}
+
+main.content .content-title h1 {
+    color: #444;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+main.content .content-title h2 {
+    color: #999;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.record {
+    font-size: 1.8rem;
 }
 
 footer.footer {
