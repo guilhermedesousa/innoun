@@ -12,7 +12,10 @@
     <div class="spacer"></div>
     <div class="dropdown">
         <div class="dropdown-button">
-            <span class="ml-2">Mock User</span>
+            <img class="avatar" src="<?= "http://www.gravatar.com/avatar.php?gravatar_id=" . md5(strtolower(trim($_SESSION['user']->email))) ?>" alt="user">
+            <span class="ml-2">
+                <?= $_SESSION['user']->name ?>
+            </span>
             <i class="icofont-simple-down mx-2"></i>
         </div>
         <div class="dropdown-content">
