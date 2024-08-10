@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use Exception;
 use mysqli;
 use mysqli_result;
 
@@ -26,5 +27,16 @@ class Database
         $result = $connection->query($sql);
         $connection->close();
         return $result;
+    }
+
+    public static function executeSQL(string $sql): int|string
+    {
+        $connection = self::getConnection();
+        if (!mysqli_query($connection, $sql)) {
+            throw new Exception(mysqli_error($connection));
+        }
+        $id = $connection->insert_id;
+        $connection->close();
+        return $id;
     }
 }
