@@ -14,12 +14,12 @@
         </div>
         <div class="card-body">
             <div class="d-flex m-5 justify-content-around">
-                <span class="record">Entrada 1: ---</span>
-                <span class="record">Saída 1: ---</span>
+                <span class="record">Entrada 1: <?= array_key_exists('time1', $userWorkingHours->values) ? $userWorkingHours->time1 : '---' ?></span>
+                <span class="record">Saída 1: <?= array_key_exists('time2', $userWorkingHours->values) ? $userWorkingHours->time2 : '---' ?></span>
             </div>
             <div class="d-flex m-5 justify-content-around">
-                <span class="record">Entrada 2: ---</span>
-                <span class="record">Saída 2: ---</span>
+                <span class="record">Entrada 2: <?= array_key_exists('time3', $userWorkingHours->values) ? $userWorkingHours->time3 : '---' ?></span>
+                <span class="record">Saída 2: <?= array_key_exists('time4', $userWorkingHours->values) ? $userWorkingHours->time4 : '---' ?></span>
             </div>
         </div>
         <div class="card-footer d-flex justify-content-center">

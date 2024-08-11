@@ -9,7 +9,7 @@ class Model
 {
     protected static string $table_name = '';
     protected static array $columns = [];
-    protected array $values = [];
+    public array $values = [];
 
     public function __construct(array $arr)
     {
