@@ -27,7 +27,10 @@ class Model
 
     public function __get(string $key)
     {
-        return $this->values[$key];
+        if (isset($this->values[$key])) {
+            return $this->values[$key];
+        }
+        return null;
     }
 
     public function __set(string $key, mixed $value)
@@ -35,7 +38,7 @@ class Model
         $this->values[$key] = $value;
     }
 
-    public static function getOne(array $filters = [], string $columns = '*')
+    public static function getOne(array $filters = [], string $columns = '*'): Model|null
     {
         $class = get_called_class();
         $result = static::getResultFromSelect($filters, $columns);
@@ -46,10 +49,10 @@ class Model
     public static function get(array $filters = [], string $columns = '*'): array
     {
         $objects = [];
+        $class = get_called_class();
         $result = static::getResultFromSelect($filters, $columns);
 
         if ($result) {
-            $class = get_called_class();
             while ($row = $result->fetch_assoc()) {
                 $objects[] = new $class($row);
             }
@@ -81,7 +84,7 @@ class Model
         return $sql;
     }
 
-    public function save(): void
+    public function insert(): void
     {
         $sql = "INSERT INTO " . static::$table_name . " (" . implode(",", static::$columns) . ") VALUES (";
 
@@ -91,6 +94,18 @@ class Model
         $sql[strlen($sql) - 1] = ')';
         $id = Database::executeSQL($sql);
         $this->id = $id;
+    }
+
+    public function update(): void
+    {
+        $sql = "UPDATE " . static::$table_name . " SET ";
+
+        foreach (static::$columns as $column) {
+            $sql .= $column . " = " . static::getFormattedValue($this->$column) . ",";
+        }
+        $sql[strlen($sql) - 1] = ' ';
+        $sql .= "WHERE id = {$this->id}";
+        Database::executeSQL($sql);
     }
 
     private static function getFormattedValue(mixed $value)

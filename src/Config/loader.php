@@ -36,7 +36,7 @@ function loadTemplateView(string $viewName, array $params = []): void
     require_once TEMPLATE_PATH . "/footer.php";
 }
 
-function renderTitle(string $title, string $subtitle, string $icon = null)
+function renderTitle(string $title, string $subtitle, string $icon = null): void
 {
     require_once TEMPLATE_PATH . "/title.php";
 }
