@@ -15,6 +15,9 @@ $currentTime = new DateTime();
 $currentTime = $currentTime->format("H:i:s");
 
 try {
+    if ($_POST['forcedTime']) {
+        $currentTime = $_POST['forcedTime'];
+    }
     $records->clockInAndOut($currentTime);
     addSuccessMessage('Ponto inserido com sucesso');
 } catch (AppException $e) {
