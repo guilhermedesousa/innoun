@@ -45,3 +45,29 @@ function getPtMonthName(string $date): string
     [$day, $_, $month, $_, $year] = explode(' ', $date);
     return $day . ' de ' . MONTH_MAP[$month] . ' de ' . $year;
 }
+
+function sumIntervals($interval1, $interval2): DateInterval|false
+{
+    $date = new DateTime('00:00:00');
+    $date->add($interval1);
+    $date->add($interval2);
+    return (new DateTime('00:00:00'))->diff($date);
+}
+
+function subtractIntervals($interval1, $interval2): DateInterval|false
+{
+    $date = new DateTime('00:00:00');
+    $date->add($interval1);
+    $date->sub($interval2);
+    return (new DateTime('00:00:00'))->diff($date);
+}
+
+function dateFromInterval($interval): DateTimeImmutable
+{
+    return new DateTimeImmutable($interval->format('H:i:s'));
+}
+
+function dateFromString($date): DateTimeImmutable|false
+{
+    return DateTimeImmutable::createFromFormat('H:i:s', $date);
+}

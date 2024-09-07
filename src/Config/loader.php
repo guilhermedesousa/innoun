@@ -1,5 +1,7 @@
 <?php
 
+use Models\WorkingHours;
+
 function loadModel(string $modelName): void
 {
     require_once MODEL_PATH . "/{$modelName}.php";
@@ -28,6 +30,12 @@ function loadTemplateView(string $viewName, array $params = []): void
             }
         }
     }
+
+    $user = $_SESSION['user'];
+    $workingHours = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
+    $workedTime = $workingHours->getWorkedTime()->format('%H:%I:%S');
+    $exitTime = $workingHours->getExitTime()->format('H:i:s');
+    $activeClock = $workingHours->getActiveClock();
 
     require_once TEMPLATE_PATH . "/head.php";
     require_once TEMPLATE_PATH . "/header.php";
