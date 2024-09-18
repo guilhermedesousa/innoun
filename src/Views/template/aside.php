@@ -46,7 +46,7 @@
                 <?= $activeClock === 'exitTime' ? 'active-clock' : '' ?>>
                     <?= $exitTime ?>
                 </span>
-                <span class="label text-muted">Horas de Saída</span>
+                <span class="label text-muted">Hora de Saída</span>
             </div>
         </div>
     </div>

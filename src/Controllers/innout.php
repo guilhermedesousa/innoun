@@ -15,7 +15,7 @@ $currentTime = new DateTime();
 $currentTime = $currentTime->format("H:i:s");
 
 try {
-    if ($_POST['forcedTime']) {
+    if (isset($_POST['forcedTime'])) {
         $currentTime = $_POST['forcedTime'];
     }
     $records->clockInAndOut($currentTime);
