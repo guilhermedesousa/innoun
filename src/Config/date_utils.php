@@ -71,3 +71,41 @@ function dateFromString($date): DateTimeImmutable|false
 {
     return DateTimeImmutable::createFromFormat('H:i:s', $date);
 }
+
+function getFirstDayOfMonth($date): DateTime
+{
+    $time = getDateAsDateTime($date)->getTimestamp();
+    return new DateTime(date('Y-m-1', $time));
+}
+
+function getLastDayOfMonth($date): DateTime
+{
+    $time = getDateAsDateTime($date)->getTimestamp();
+    return new DateTime(date('Y-m-t', $time));
+}
+
+function getSecondsFromDateInterval($interval): int
+{
+    $d1 = new DateTimeImmutable();
+    $d2 = $d1->add($interval);
+    return $d2->getTimestamp() - $d1->getTimestamp();
+}
+
+function isPastWorkday($date): bool
+{
+    return !isWeekend($date) && isBefore($date, new DateTime());
+}
+
+function getTimeStringFromSeconds($seconds): string
+{
+    $h = intdiv($seconds, 3600);
+    $m = intdiv($seconds % 3600, 60);
+    $s = $seconds - ($h * 3600) - ($m * 60);
+    return sprintf('%02d:%02d:%02d', $h, $m, $s);
+}
+
+function formatDateWithLocale($date, $pattern): false|string
+{
+    $time = getDateAsDateTime($date)->getTimestamp();
+    return strftime($pattern, $time);
+}

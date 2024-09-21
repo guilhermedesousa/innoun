@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL ^ E_DEPRECATED);
+
 require_once dirname(__FILE__, 2) . '/src/Config/config.php';
 
 $uri = urldecode(

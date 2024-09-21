@@ -78,7 +78,11 @@ class Model
         if (!empty($filters)) {
             $sql .= ' WHERE 1 = 1';
             foreach ($filters as $column => $value) {
-                $sql .= " AND $column = " . static::getFormattedValue($value);
+                if ($column == 'raw') {
+                    $sql .= "AND $value";
+                } else {
+                    $sql .= " AND $column = " . static::getFormattedValue($value);
+                }
             }
         }
         return $sql;
