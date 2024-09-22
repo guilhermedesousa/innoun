@@ -11,17 +11,26 @@ class Model
     protected static array $columns = [];
     public array $values = [];
 
-    public function __construct(array $arr)
+    public function __construct(array $arr, $sanitize = true)
     {
-        $this->loadFromArray($arr);
+        $this->loadFromArray($arr, $sanitize);
     }
 
-    public function loadFromArray(array $arr): void
+    public function loadFromArray(array $arr, $sanitize = true): void
     {
         if ($arr) {
+            // $conn = Database::getConnection();
             foreach ($arr as $key => $value) {
-                $this->$key = $value;
+                $cleanValue = $value;
+                if ($sanitize && isset($cleanValue)) {
+                    $cleanValue = strip_tags(trim($cleanValue));
+                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
+                    // $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
+                }
+
+                $this->$key = $cleanValue;
             }
+            // $conn->close();
         }
     }
 
