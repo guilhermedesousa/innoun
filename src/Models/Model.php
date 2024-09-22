@@ -47,6 +47,11 @@ class Model
         $this->values[$key] = $value;
     }
 
+    public function getValues(): array
+    {
+        return $this->values;
+    }
+
     public static function getOne(array $filters = [], string $columns = '*'): Model|null
     {
         $class = get_called_class();
