@@ -2,6 +2,8 @@
 
 namespace Models;
 
+use Cassandra\Date;
+use Config\Database;
 use Exceptions\AppException;
 use DateInterval;
 use DateTime;
@@ -124,6 +126,39 @@ class WorkingHours extends Model
         $balanceString = getTimeStringFromSeconds(abs($balance));
         $sign = $this->worked_time >= DAILY_TIME ? '+' : '-';
         return "{$sign}{$balanceString}";
+    }
+
+    public static function getAbsentUsers(): array
+    {
+        $today = new DateTime();
+        $result = Database::getResultFromQuery("
+            SELECT name FROM users
+            WHERE end_date is NULL
+            AND id NOT IN (
+                SELECT user_id FROM working_hours
+                WHERE work_date = '{$today->format('Y-m-d')}'
+                AND time1 IS NOT NULL
+            )
+        ");
+
+        $absentUsers = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $absentUsers[] = $row['name'];
+            }
+        }
+
+        return $absentUsers;
+    }
+
+    public static function getWorkedTimeInMonth($yearAndMonth)
+    {
+        $startDate = (new DateTime("{$yearAndMonth}-1"))->format('Y-m-d');
+        $endDate = getLastDayOfMonth($yearAndMonth)->format('Y-m-d');
+        $result = static::getResultFromSelect([
+            'raw' => 'work_date BETWEEN ' . $startDate . ' AND ' . $endDate
+        ], "sum(worked_time) as sum");
+        return $result->fetch_assoc()['sum'];
     }
 
     public static function getMonthlyReport($userId, $date): array

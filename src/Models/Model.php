@@ -76,7 +76,7 @@ class Model
     {
         $sql = '';
         if (!empty($filters)) {
-            $sql .= ' WHERE 1 = 1';
+            $sql .= ' WHERE 1 = 1 ';
             foreach ($filters as $column => $value) {
                 if ($column == 'raw') {
                     $sql .= "AND $value";
@@ -110,6 +110,12 @@ class Model
         $sql[strlen($sql) - 1] = ' ';
         $sql .= "WHERE id = {$this->id}";
         Database::executeSQL($sql);
+    }
+
+    public static function getCount($filters = [])
+    {
+        $result = static::getResultFromSelect($filters, 'count(*) as count');
+        return $result->fetch_assoc()['count'];
     }
 
     private static function getFormattedValue(mixed $value)
