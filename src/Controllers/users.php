@@ -4,9 +4,25 @@ namespace Controllers;
 
 use DateTime;
 use Models\User;
+use Exception;
 
 session_start();
 requireValidSession();
+
+$exception = null;
+
+if (isset($_GET['delete'])) {
+    try {
+        User::deleteById($_GET['delete']);
+        addSuccessMessage("Usuário excluído com sucesso!");
+    } catch (Exception $e) {
+        if (stripos($e->getMessage(), 'FOREIGN KEY')) {
+            addErrorMessage("Não é possível excluir usuário com registros de ponto.");
+        } else {
+            $exception = $e;
+        }
+    }
+}
 
 $users = User::get();
 
@@ -18,5 +34,6 @@ foreach ($users as $user) {
 }
 
 loadTemplateView('users', [
-    'users' => $users
+    'users' => $users,
+    'exception' => $exception
 ]);

@@ -112,6 +112,12 @@ class Model
         Database::executeSQL($sql);
     }
 
+    public static function deleteById($id): void
+    {
+        $sql = "DELETE FROM " . static::$table_name . " WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
+
     public static function getCount($filters = [])
     {
         $result = static::getResultFromSelect($filters, 'count(*) as count');
