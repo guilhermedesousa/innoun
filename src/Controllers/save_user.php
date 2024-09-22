@@ -6,7 +6,7 @@ use Exception;
 use Models\{User};
 
 session_start();
-requireValidSession();
+requireValidSession(true);
 
 $exception = null;
 $userData = [];

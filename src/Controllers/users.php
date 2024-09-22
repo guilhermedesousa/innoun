@@ -7,7 +7,7 @@ use Models\User;
 use Exception;
 
 session_start();
-requireValidSession();
+requireValidSession(true);
 
 $exception = null;
 

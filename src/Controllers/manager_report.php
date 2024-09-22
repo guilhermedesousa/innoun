@@ -6,7 +6,7 @@ use Models\{User, WorkingHours};
 use DateTime;
 
 session_start();
-requireValidSession();
+requireValidSession(true);
 
 $activeUsersCount = User::getActiveUsersCount();
 $absentUsers = WorkingHours::getAbsentUsers();
